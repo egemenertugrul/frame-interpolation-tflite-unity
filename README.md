@@ -6,6 +6,8 @@
 
 ## About frame-interpolation-tflite-unity fork
 
+![film_tflite_unity](https://user-images.githubusercontent.com/10247966/231226770-1e3bf653-e6d1-4713-915a-05d5b43d52dd.jpg)
+
 The aim of this fork is to use FILM model on Unity for frame interpolation. It is based on [asus4/tf-lite-unity-sample](https://github.com/asus4/tf-lite-unity-sample) and uses TensorFlow Lite to perform the operations. Make sure to check the compatibility of this library with respect to your target device, it may or may not support GPU. It is the following as of writing this text:
 
 | | iOS | Android | macOS | Ubuntu | Windows |
