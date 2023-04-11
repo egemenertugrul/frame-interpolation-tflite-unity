@@ -11,10 +11,11 @@ public class FILM_SampleCanvas : MonoBehaviour
     private int interpCoeff = 1;
 
     public Button runButton;
-    public Slider slider;
+    public Slider timesToInterpolateSlider, outputIndexSlider;
     public Image Input1, Input2;
     public RawImage OutputImage;
-    public Text sliderValueText;
+    public Text timesToInterpolateText, outputIndexText;
+    private FILM_Output filmOutputs;
 
     void Start()
     {
@@ -32,16 +33,31 @@ public class FILM_SampleCanvas : MonoBehaviour
         Input2.sprite = Sprite.Create(CreateTexture2D(tex2), new Rect(0.0f, 0.0f, tex2.width, tex2.height), new Vector2(0.5f, 0.5f), 100.0f);
         OutputImage.texture = null;
 
-        sliderValueText.text = ((int)slider.value).ToString();
-        slider.onValueChanged.AddListener((val) =>
+        timesToInterpolateText.text = ((int)timesToInterpolateSlider.value).ToString();
+        timesToInterpolateSlider.onValueChanged.AddListener((val) =>
         {
             interpCoeff = ((int)val);
-            sliderValueText.text = interpCoeff.ToString();
+            timesToInterpolateText.text = interpCoeff.ToString();
         });
 
         runButton.onClick.AddListener(() => {
-            OutputImage.texture = filmController.OutputTexture;
+            //OutputImage.texture = filmController.OutputTexture;
             filmController.Invoke(tex1, tex2, interpCoeff);
+        });
+
+        outputIndexSlider.onValueChanged.AddListener((val) => {
+            OutputImage.texture = filmOutputs?[(int)val];
+        });
+
+        filmController.OnFilmOperationComplete.AddListener((filmOutputs) => {
+            outputIndexSlider.wholeNumbers = true;
+            outputIndexSlider.minValue = 0;
+            outputIndexSlider.maxValue = filmOutputs.size - 1;
+            outputIndexSlider.SetValueWithoutNotify(0);
+
+            this.filmOutputs = filmOutputs;
+            OutputImage.texture = filmOutputs[0];
+
         });
     }
 
