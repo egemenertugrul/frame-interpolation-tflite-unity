@@ -91,6 +91,6 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/pycharm+all
 
+*.pyc
 pretrained_models
-eval
 film_net_fixed
