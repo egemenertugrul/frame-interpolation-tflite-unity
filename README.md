@@ -2,6 +2,52 @@
 
 ### [Website](https://film-net.github.io/) | [Paper](https://arxiv.org/pdf/2202.04901.pdf) | [Google AI Blog](https://ai.googleblog.com/2022/10/large-motion-frame-interpolation.html) | [Tensorflow Hub Colab](https://www.tensorflow.org/hub/tutorials/tf_hub_film_example) | [YouTube](https://www.youtube.com/watch?v=OAD-BieIjH4) <br>
 
+<hr>
+
+## About frame-interpolation-tflite-unity fork
+
+![film_tflite_unity](https://user-images.githubusercontent.com/10247966/231226770-1e3bf653-e6d1-4713-915a-05d5b43d52dd.jpg)
+
+The aim of this fork is to use FILM model on Unity for frame interpolation. It is based on [asus4/tf-lite-unity-sample](https://github.com/asus4/tf-lite-unity-sample) and uses TensorFlow Lite to perform the operations. Make sure to check the compatibility of this library with respect to your target device, it may or may not support GPU. It is the following as of writing this text:
+
+| | iOS | Android | macOS | Ubuntu | Windows |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Core CPU |✅|✅|✅|✅|✅|
+| Metal Delegate |✅| - |✅| - | - |
+| GPU Delegate | - |✅| - | ✅ Experimental | - |
+| NNAPI Delegate | - |✅| - | - | - |
+
+### TFLite Model
+
+The pretrained model given in the project is converted to the ``.tflite`` format. You may use it for other projects and purposes too.
+
+``film.tflite``: [[Google Drive]](https://drive.google.com/file/d/1JUDF3tJCYlfG2TGTOcBU-vZrYIWkHKh_/view?usp=share_link)
+
+--
+
+Here are the shapes required for inference: 
+
+``` js
+// IT: Input Tensor
+// OT: Output Tensor
+
+(1, 1)[[0.5]] -> IT[0]      // Time parameter, it is always inferred a frame at t = 0.5 (interpolator.py#L102)
+(1, WIDTH, HEIGHT, 3) -> IT[1]      // Input image 1
+(1, WIDTH, HEIGHT, 3) -> IT[2]      // Input image 2
+.
+.
+.
+OT[1] -> (1, WIDTH, HEIGHT, 3)      // Output image, retrieved from index 1 of OT
+```
+
+For the Unity project, download and place the `.tflite` file in the StreamingAssets folder.
+
+_PS: I also tried converting to ``.onnx`` format using [tf2onnx](https://github.com/onnx/tensorflow-onnx) using multiple opsets to make it compatible with [Barracuda](https://docs.unity3d.com/Packages/com.unity.barracuda@1.0/manual/index.html), however, I could not get it to work due to some uncompatible operations, such as [this one](https://github.com/Unity-Technologies/barracuda-release/issues/190). Feel free to create an issue/PR if you manage to make it work._
+
+<hr>
+
+## About the project
+
 The official Tensorflow 2 implementation of our high quality frame interpolation neural network. We present a unified single-network approach that doesn't use additional pre-trained networks, like optical flow or depth, and yet achieve state-of-the-art results. We use a multi-scale feature extractor that shares the same convolution weights across the scales. Our model is trainable from frame triplets alone. <br>
 
 [FILM: Frame Interpolation for Large Motion](https://arxiv.org/abs/2202.04901) <br />
