@@ -8,7 +8,7 @@
 
 ![film_tflite_unity](https://user-images.githubusercontent.com/10247966/231226770-1e3bf653-e6d1-4713-915a-05d5b43d52dd.jpg)
 
-The aim of this fork is to use FILM model on Unity for frame interpolation. It is based on [asus4/tf-lite-unity-sample](https://github.com/asus4/tf-lite-unity-sample) and uses TensorFlow Lite to perform the operations. Make sure to check the compatibility of this library with respect to your target device, it may or may not support GPU. It is the following as of writing this text:
+The aim of this fork is to use FILM model on Unity for frame interpolation. It is based on [asus4/tf-lite-unity-sample](https://github.com/asus4/tf-lite-unity-sample) and uses TensorFlow Lite to perform the operations. Make sure to check the compatibility of this library with respect to your target device. It is the following as of writing this text:
 
 | | iOS | Android | macOS | Ubuntu | Windows |
 |---|:---:|:---:|:---:|:---:|:---:|
@@ -19,9 +19,9 @@ The aim of this fork is to use FILM model on Unity for frame interpolation. It i
 
 ### TFLite Model
 
-The pretrained model given in the project is converted to the ``.tflite`` format. You may use it for other projects and purposes too.
+The pretrained model given in the project is converted to the [``.tflite`` format](https://github.com/egemenertugrul/frame-interpolation-tflite-unity/tree/main/FILM_TFLite_UnityProject/Assets/StreamingAssets). You may use it for other projects and purposes too. Unfortunately, I was not able to make it [GPU delegate](https://www.tensorflow.org/lite/performance/gpu) [compatible](https://www.tensorflow.org/api_docs/python/tf/lite/experimental/Analyzer#analyze).
 
-``film.tflite``: [[Google Drive]](https://drive.google.com/file/d/1JUDF3tJCYlfG2TGTOcBU-vZrYIWkHKh_/view?usp=share_link)
+You may perform the conversion operation [yourself](https://github.com/egemenertugrul/frame-interpolation-tflite-unity/blob/main/dynamic_to_static_tensor.py).
 
 --
 
